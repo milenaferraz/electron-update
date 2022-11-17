@@ -1,0 +1,4 @@
+appId: electron-update
+publish:
+  provider: github
+  token: process.env.TOKEN_GITHUB
