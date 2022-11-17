@@ -26,7 +26,8 @@ function createWindow() {
 
 app.on("ready", () => {
   createWindow();
-  updateInterval = setInterval(() => autoUpdater.checkForUpdates(), 600000);
+  updateInterval = autoUpdater.checkForUpdates(); //setInterval(() => autoUpdater.checkForUpdates(), 600000);
+  console.log(updateInterval);
 });
 
 app.on("window-all-closed", function () {
