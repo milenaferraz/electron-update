@@ -2,10 +2,9 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const { autoUpdater } = require("electron-updater");
 require("dotenv").config();
 
-console.log(process.env.TOKEN_GITHUB);
-
 let mainWindow;
 let updateInterval = null;
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
@@ -26,8 +25,10 @@ function createWindow() {
 
 app.on("ready", () => {
   createWindow();
-  updateInterval = autoUpdater.checkForUpdates(); //setInterval(() => autoUpdater.checkForUpdates(), 600000);
-  console.log(updateInterval);
+  updateInterval = setInterval(() => {
+    autoUpdater.checkForUpdates();
+  }, 10000);
+  console.log("Update", updateInterval);
 });
 
 app.on("window-all-closed", function () {
@@ -50,6 +51,7 @@ ipcMain.on("app_version", (event) => {
 autoUpdater.on("update-available", () => {
   mainWindow.webContents.send("update_available");
 });
+
 autoUpdater.on("update-downloaded", () => {
   mainWindow.webContents.send("update_downloaded");
 });
