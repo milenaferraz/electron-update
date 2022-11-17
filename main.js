@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const { autoUpdater } = require("electron-updater");
+const isDev = require("electron-is-dev");
 require("dotenv").config();
 const log = require("electron-log");
 autoUpdater.logger = log;
@@ -27,7 +28,8 @@ function createWindow() {
 
 app.on("ready", () => {
   createWindow();
-   autoUpdater.checkForUpdatesAndNotify();
+  let teste = autoUpdater.checkForUpdatesAndNotify();
+  log.info("Ready", teste);
 });
 
 autoUpdater.checkForUpdates();
@@ -45,15 +47,17 @@ app.on("activate", function () {
 });
 
 ipcMain.on("app_version", (event) => {
-  console.log("Aqui");
+  log.info("app_version");
   event.sender.send("app_version", { version: app.getVersion() });
 });
 
 autoUpdater.on("update-available", () => {
+  log.info("update-available");
   mainWindow.webContents.send("update_available");
 });
 
 autoUpdater.on("update-downloaded", () => {
+  log.info("update-downloaded");
   mainWindow.webContents.send("update_downloaded");
 });
 
