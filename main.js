@@ -1,9 +1,11 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const { autoUpdater } = require("electron-updater");
 require("dotenv").config();
+const log = require("electron-log");
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = "info";
 
 let mainWindow;
-let updateInterval = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -25,6 +27,7 @@ function createWindow() {
 
 app.on("ready", () => {
   createWindow();
+   autoUpdater.checkForUpdatesAndNotify();
 });
 
 autoUpdater.checkForUpdates();
