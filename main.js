@@ -5,7 +5,7 @@ require("dotenv").config();
 console.log(process.env.TOKEN_GITHUB);
 
 let mainWindow;
-
+let updateInterval = null;
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
@@ -26,6 +26,7 @@ function createWindow() {
 
 app.on("ready", () => {
   createWindow();
+  updateInterval = setInterval(() => autoUpdater.checkForUpdates(), 600000);
 });
 
 app.on("window-all-closed", function () {
@@ -38,10 +39,6 @@ app.on("activate", function () {
   if (mainWindow === null) {
     createWindow();
   }
-});
-
-app.once("ready-to-show", () => {
-  autoUpdater.checkForUpdatesAndNotify();
 });
 
 ipcMain.on("app_version", (event) => {
