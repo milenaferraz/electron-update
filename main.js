@@ -25,11 +25,9 @@ function createWindow() {
 
 app.on("ready", () => {
   createWindow();
-  updateInterval = setInterval(() => {
-    autoUpdater.checkForUpdates();
-  }, 10000);
-  console.log("Update", updateInterval);
 });
+
+autoUpdater.checkForUpdates();
 
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") {
