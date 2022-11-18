@@ -1,6 +1,6 @@
 {
   "name": "electron-update",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "Test electron-update",
   "main": "main.js",
   "scripts": {

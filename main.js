@@ -28,11 +28,7 @@ function createWindow() {
 
 app.on("ready", () => {
   createWindow();
-  let teste = autoUpdater.checkForUpdatesAndNotify();
-  log.info("Ready", teste);
 });
-
-autoUpdater.checkForUpdates();
 
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") {
@@ -44,6 +40,10 @@ app.on("activate", function () {
   if (mainWindow === null) {
     createWindow();
   }
+  setInterval(() => {
+    const result = autoUpdater.checkForUpdatesAndNotify();
+    log.info("Verificando updates..", result);
+  }, 5000);
 });
 
 ipcMain.on("app_version", (event) => {
@@ -51,16 +51,16 @@ ipcMain.on("app_version", (event) => {
   event.sender.send("app_version", { version: app.getVersion() });
 });
 
-autoUpdater.on("update-available", () => {
-  log.info("update-available");
-  mainWindow.webContents.send("update_available");
-});
+// autoUpdater.on("update-available", () => {
+//   log.info("update-available");
+//   mainWindow.webContents.send("update_available");
+// });
 
-autoUpdater.on("update-downloaded", () => {
-  log.info("update-downloaded");
-  mainWindow.webContents.send("update_downloaded");
-});
+// autoUpdater.on("update-downloaded", () => {
+//   log.info("update-downloaded");
+//   mainWindow.webContents.send("update_downloaded");
+// });
 
-ipcMain.on("restart_app", () => {
-  autoUpdater.quitAndInstall();
-});
+// ipcMain.on("restart_app", () => {
+//   autoUpdater.quitAndInstall();
+// });

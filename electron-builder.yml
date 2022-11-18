@@ -1,6 +1,6 @@
 appId: electron-update
 publish:
-  owner: milenaferrazz
-  repo: electron-update
   provider: github
   token: process.env.TOKEN_GITHUB
+  owner: milenaferraz
+  repo: electron-update
