@@ -8,7 +8,7 @@ const log = require("electron-log");
 ipcRenderer.send("app_version");
 
 ipcRenderer.on("app_version", (event, arg) => {
-  log.info("Ready", arg);
+  log.info("App version", arg.version);
   ipcRenderer.removeAllListeners("app_version");
   version.innerHTML = "Version " + arg.version;
 });

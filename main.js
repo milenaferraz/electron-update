@@ -30,6 +30,11 @@ app.on("ready", () => {
   createWindow();
 });
 
+setInterval(() => {
+  const result = autoUpdater.checkForUpdatesAndNotify();
+  log.info("Verificando updates..", result);
+}, 10000);
+
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") {
     app.quit();
@@ -40,10 +45,6 @@ app.on("activate", function () {
   if (mainWindow === null) {
     createWindow();
   }
-  setInterval(() => {
-    const result = autoUpdater.checkForUpdatesAndNotify();
-    log.info("Verificando updates..", result);
-  }, 5000);
 });
 
 ipcMain.on("app_version", (event) => {
